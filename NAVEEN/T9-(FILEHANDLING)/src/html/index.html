@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <title>TUTORIAL</title>
+</head>
+<style>
+    #entry1{
+        margin-left:30px;
+    }
+    .componenet{
+        font-size: 40px;
+        /*border: 2px solid black;*/
+        width: fit-content;
+    }
+    #entry1{
+        margin-left:30px;
+        width: 500px;
+        height: 100px;
+        font-size: large;
+    }
+</style>
+<body>
+    <div class = "componenet">
+        <label for="enter" class="enter">ENTER</label>
+        <input type="text" id="entry1" placeholder="enter something">
+        <button id="fetchData">Get data</button>
+        <p id="responseBox"></p>
+    </div>
+</body>
+<script>
+    document.getElementById("fetchData").addEventListener('click', async()=>{
+        /*const response = await fetch("/api/data");
+        const data = await response.json();
+        document.getElementById("responseBox").textContent = data.message;*/
+
+        const entry = document.getElementById("entry1");
+        const value = entry.value;
+        /*console.log(value);*/
+
+        fetch("/send-data",{
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({message: value})
+        })        
+        .then(response=>response.json())
+        .then(data=>console.log(data))
+        .catch(error=>console.log(error));
+    });
+
+</script>
+</html>
